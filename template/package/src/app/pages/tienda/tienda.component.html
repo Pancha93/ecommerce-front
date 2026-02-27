@@ -55,14 +55,39 @@
 
       <div class="row">
         <div class="col-md-4 mb-4" *ngFor="let producto of productosFiltrados">
-          <div class="card h-100">
-            <img 
-              [src]="getProductImageUrl(producto)" 
-              class="card-img-top" 
-              [alt]="producto.nombre"
-              style="height: 200px; object-fit: cover;">
+          <div class="card h-100" [class.border-danger]="producto.activo === false">
+            <div style="position: relative;">
+              <img 
+                [src]="getProductImageUrl(producto)" 
+                class="card-img-top" 
+                [alt]="producto.nombre"
+                style="height: 200px; object-fit: cover;"
+                [style.opacity]="producto.activo === false ? '0.5' : '1'">
+              
+              <!-- Badges de estado -->
+              <div style="position: absolute; top: 10px; left: 10px; z-index: 10;">
+                <span *ngIf="producto.activo === false" class="badge bg-danger mb-1 d-block">
+                  <i class="bi bi-x-circle"></i> INACTIVO
+                </span>
+                <span *ngIf="producto.destacado" class="badge bg-warning text-dark d-block">
+                  <i class="bi bi-star-fill"></i> DESTACADO
+                </span>
+              </div>
+              
+              <div *ngIf="producto.stock === 0" style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+                <span class="badge bg-dark">
+                  <i class="bi bi-exclamation-triangle"></i> SIN STOCK
+                </span>
+              </div>
+            </div>
+            
             <div class="card-body">
-              <h5 class="card-title">{{ producto.nombre }}</h5>
+              <h5 class="card-title">
+                {{ producto.nombre }}
+                <span *ngIf="producto.activo === false" class="text-danger small">
+                  (Inactivo)
+                </span>
+              </h5>
               <p class="card-text text-muted">{{ producto.descripcion?.substring(0, 100) }}...</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div>

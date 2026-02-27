@@ -32,7 +32,12 @@ import { CarritoService } from '../../services/carrito.service';
           <h1>{{ producto.nombre }}</h1>
           <div class="mb-3">
             <span class="badge bg-primary">{{ producto.categoriaNombre }}</span>
-            <span class="badge bg-success ms-2" *ngIf="producto.destacado">Destacado</span>
+            <span class="badge bg-success ms-2" *ngIf="producto.destacado">
+              <i class="bi bi-star-fill"></i> Destacado
+            </span>
+            <span class="badge bg-danger ms-2" *ngIf="producto.activo === false">
+              <i class="bi bi-x-circle"></i> INACTIVO
+            </span>
           </div>
 
           <div class="mb-3">
@@ -59,6 +64,12 @@ import { CarritoService } from '../../services/carrito.service';
             <p>{{ producto.descripcion }}</p>
           </div>
 
+          <!-- Alerta de producto inactivo -->
+          <div *ngIf="producto.activo === false" class="alert alert-warning" role="alert">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <strong>Producto no disponible:</strong> Este producto está actualmente inactivo y no puede ser comprado.
+          </div>
+
           <div class="mb-3">
             <label class="form-label">Cantidad:</label>
             <div class="input-group" style="width: 150px;">
@@ -72,8 +83,9 @@ import { CarritoService } from '../../services/carrito.service';
             <button 
               class="btn btn-primary btn-lg" 
               (click)="agregarAlCarrito()"
-              [disabled]="producto.stock === 0 || cantidad > producto.stock">
-              <i class="bi bi-cart-plus"></i> Agregar al Carrito
+              [disabled]="producto.stock === 0 || cantidad > producto.stock || producto.activo === false">
+              <i class="bi bi-cart-plus"></i> 
+              {{ producto.activo === false ? 'Producto no disponible' : 'Agregar al Carrito' }}
             </button>
             <button class="btn btn-outline-secondary" [routerLink]="['/tienda']">
               Volver a la Tienda

@@ -42,7 +42,7 @@
               <span *ngIf="producto.precioOferta" class="product-price-old">${{ producto.precio }}</span>
               <span class="product-price">${{ producto.precioOferta || producto.precio }}</span>
             </div>
-            <span class="product-badge" *ngIf="producto.destacado">⭐ Destacado</span>
+            <span class="product-badge" *ngIf="producto.destacado">⭐ Destacado</span>            <span class="product-badge bg-danger" *ngIf="producto.activo === false"> Inactivo</span>            <span class="product-badge bg-danger" *ngIf="producto.activo === false"> Inactivo</span>
           </mat-card-content>
           <mat-card-actions class="product-actions">
             <button mat-raised-button color="primary" (click)="agregarAlCarrito(producto, $event)">
@@ -103,6 +103,7 @@
               <span class="product-price product-price-sale">${{ producto.precioOferta }}</span>
             </div>
             <span class="product-badge badge-sale">🔥 Oferta</span>
+            <span class="product-badge bg-danger" *ngIf="producto.activo === false">❌ Inactivo</span>
           </mat-card-content>
           <mat-card-actions class="product-actions">
             <button mat-raised-button color="warn" (click)="agregarAlCarrito(producto, $event)">

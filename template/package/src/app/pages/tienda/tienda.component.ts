@@ -15,8 +15,23 @@ import { ProductoModalComponent } from './producto-modal.component';
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './tienda.component.html',
   styles: [`
-    .card { transition: transform 0.2s; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    .card { 
+      transition: transform 0.2s; 
+    }
+    .card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    }
+    .card.border-danger {
+      border: 2px solid #dc3545 !important;
+      background-color: #fff5f5;
+    }
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.6rem;
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
   `]
 })
 export class TiendaComponent implements OnInit {
@@ -158,6 +173,7 @@ export class TiendaComponent implements OnInit {
         next: () => {
           alert('Producto actualizado exitosamente');
           this.cargarProductos();
+          this.cargarCategorias(); // Actualizar contador de categorías
         },
         error: (error) => {
           console.error('Error al actualizar producto', error);
@@ -170,6 +186,7 @@ export class TiendaComponent implements OnInit {
         next: () => {
           alert('Producto creado exitosamente');
           this.cargarProductos();
+          this.cargarCategorias(); // Actualizar contador de categorías
         },
         error: (error) => {
           console.error('Error al crear producto', error);
@@ -187,6 +204,7 @@ export class TiendaComponent implements OnInit {
         next: () => {
           alert('Producto eliminado exitosamente');
           this.cargarProductos();
+          this.cargarCategorias(); // Actualizar contador de categorías
         },
         error: (error) => {
           console.error('Error al eliminar producto', error);
