@@ -73,6 +73,16 @@ export class AuthService {
     return decodedToken.sub || '';
   }
 
+  // Verificar si el usuario es administrador
+  isAdmin(): boolean {
+    const decodedToken = this.getDecodedToken();
+    if (!decodedToken) return false;
+
+    // tieneRolNoAdministrador = true significa que NO es admin
+    // tieneRolNoAdministrador = false significa que SÍ es admin
+    return decodedToken.tieneRolNoAdministrador === false;
+  }
+
   // Método para cerrar sesión
   logout() {
     localStorage.removeItem('token');

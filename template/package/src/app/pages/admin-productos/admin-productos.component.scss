@@ -1,0 +1,45 @@
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+mat-chip {
+  color: white;
+  font-weight: 500;
+}
+
+.bg-danger {
+  background-color: #f44336 !important;
+}
+
+.bg-warning {
+  background-color: #ff9800 !important;
+}
+
+.bg-success {
+  background-color: #4caf50 !important;
+}
+
+.text-success {
+  color: #4caf50;
+}
+
+.text-warning {
+  color: #ff9800;
+}
+
+.text-muted {
+  color: #999;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}

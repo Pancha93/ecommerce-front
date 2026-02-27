@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar de Categorías -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h5>Categorías</h5>
+        </div>
+        <div class="list-group list-group-flush">
+          <button 
+            class="list-group-item list-group-item-action" 
+            [class.active]="categoriaSeleccionada === null"
+            (click)="filtrarPorCategoria(null)">
+            Todas
+          </button>
+          <button 
+            *ngFor="let categoria of categorias"
+            class="list-group-item list-group-item-action"
+            [class.active]="categoriaSeleccionada === categoria.id"
+            (click)="categoria.id && filtrarPorCategoria(categoria.id)">
+            {{ categoria.nombre }} ({{ categoria.cantidadProductos }})
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de Productos -->
+    <div class="col-md-9">
+      <!-- Botones de administración (solo para admin) -->
+      <div *ngIf="esAdmin" class="mb-3">
+        <button class="btn btn-success" (click)="abrirModalProducto(null)">
+          <i class="bi bi-plus-circle"></i> Agregar Nuevo Producto
+        </button>
+      </div>
+
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-md-6">
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Buscar productos..."
+              [(ngModel)]="terminoBusqueda"
+              (ngModelChange)="buscarProductos()">
+          </div>
+          <div class="col-md-6">
+            <div class="btn-group" role="group">
+              <button class="btn btn-outline-primary" (click)="cargarDestacados()">Destacados</button>
+              <button class="btn btn-outline-primary" (click)="cargarNuevos()">Nuevos</button>
+              <button class="btn btn-outline-primary" (click)="cargarOfertas()">Ofertas</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-4" *ngFor="let producto of productosFiltrados">
+          <div class="card h-100">
+            <img 
+              [src]="getProductImageUrl(producto)" 
+              class="card-img-top" 
+              [alt]="producto.nombre"
+              style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title">{{ producto.nombre }}</h5>
+              <p class="card-text text-muted">{{ producto.descripcion?.substring(0, 100) }}...</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <span *ngIf="producto.precioOferta" class="text-decoration-line-through text-muted">
+                    ${{ producto.precio }}
+                  </span>
+                  <span class="h5 text-primary ms-2">
+                    ${{ producto.precioOferta || producto.precio }}
+                  </span>
+                </div>
+                <span class="badge bg-secondary">Stock: {{ producto.stock }}</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="d-grid gap-2">
+                <button 
+                  class="btn btn-primary" 
+                  [routerLink]="['/producto', producto.id]">
+                  Ver Detalles
+                </button>
+                <button 
+                  class="btn btn-success" 
+                  (click)="agregarAlCarrito(producto)"
+                  [disabled]="producto.stock === 0">
+                  <i class="bi bi-cart-plus"></i> Agregar al Carrito
+                </button>
+                
+                <!-- Botones de administración (solo para admin) -->
+                <div *ngIf="esAdmin" class="btn-group mt-2">
+                  <button 
+                    class="btn btn-sm btn-warning" 
+                    (click)="abrirModalProducto(producto)">
+                    <i class="bi bi-pencil"></i> Editar
+                  </button>
+                  <button 
+                    class="btn btn-sm btn-danger" 
+                    (click)="eliminarProducto(producto)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="productosFiltrados.length === 0" class="text-center py-5">
+        <h3>No se encontraron productos</h3>
+      </div>
+    </div>
+  </div>
+</div>

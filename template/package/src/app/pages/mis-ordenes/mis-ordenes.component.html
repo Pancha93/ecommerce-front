@@ -1,0 +1,124 @@
+<div class="container">
+  <h2 class="mb-4">{{ esAdmin ? 'Gestión de Órdenes' : 'Mis Órdenes' }}</h2>
+
+  <!-- Filtros para administrador -->
+  <div *ngIf="esAdmin" class="mb-3">
+    <div class="btn-group" role="group">
+      <button class="btn" [class.btn-primary]="!filtroEstado" [class.btn-outline-primary]="filtroEstado" 
+              (click)="filtrarPorEstado(null)">
+        Todas
+      </button>
+      <button class="btn" *ngFor="let estado of estadosDisponibles"
+              [class.btn-primary]="filtroEstado === estado" 
+              [class.btn-outline-primary]="filtroEstado !== estado"
+              (click)="filtrarPorEstado(estado)">
+        {{ estado }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="ordenes.length > 0">
+    <div class="card mb-3" *ngFor="let orden of ordenesFiltradas">
+      <div class="card-header">
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <strong>Orden #{{ orden.numeroOrden }}</strong>
+            <div *ngIf="esAdmin && orden.usuarioNombre" class="small text-muted">
+              Cliente: {{ orden.usuarioNombre }}
+            </div>
+          </div>
+          <div class="col-md-3">
+            <!-- Si es admin, mostrar select para cambiar estado -->
+            <div *ngIf="esAdmin" class="d-flex align-items-center">
+              <label class="me-2 small">Estado:</label>
+              <select 
+                class="form-select form-select-sm" 
+                [(ngModel)]="orden.estado"
+                (change)="cambiarEstado(orden)"
+                style="max-width: 150px;">
+                <option *ngFor="let estado of estadosDisponibles" [value]="estado">
+                  {{ estado }}
+                </option>
+              </select>
+            </div>
+            <!-- Si no es admin, solo mostrar badge -->
+            <span *ngIf="!esAdmin" class="badge" [ngClass]="getEstadoBadgeClass(orden.estado)">
+              {{ orden.estado }}
+            </span>
+          </div>
+          <div class="col-md-3">
+            <small class="text-muted">{{ orden.fechaCreacion | date:'short' }}</small>
+          </div>
+          <div class="col-md-3 text-end">
+            <strong class="text-primary">${{ orden.total }}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+            <h6>Productos:</h6>
+            <div *ngFor="let item of orden.items" class="mb-2">
+              <div class="d-flex align-items-center">
+                <img 
+                  [src]="getItemImageUrl(item)" 
+                  class="me-3" 
+                  style="width: 50px; height: 50px; object-fit: cover;"
+                  [alt]="item.productoNombre">
+                <div class="flex-grow-1">
+                  <strong>{{ item.productoNombre }}</strong><br>
+                  <small class="text-muted">
+                    Cantidad: {{ item.cantidad }} × ${{ item.precioUnitario }} = ${{ item.subtotal }}
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h6>Detalles del Pedido:</h6>
+            <p class="mb-1">
+              <strong>Subtotal:</strong> ${{ orden.subtotal }}<br>
+              <strong>Envío:</strong> ${{ orden.costoEnvio }}<br>
+              <strong>Impuestos:</strong> ${{ orden.impuestos }}<br>
+              <strong>Total:</strong> <span class="text-primary">${{ orden.total }}</span>
+            </p>
+            <p class="mb-1">
+              <strong>Método de pago:</strong> {{ orden.metodoPago || 'No especificado' }}
+            </p>
+            <div *ngIf="orden.direccionEnvio">
+              <strong>Dirección de envío:</strong><br>
+              <small>
+                {{ orden.direccionEnvio.nombreCompleto }}<br>
+                {{ orden.direccionEnvio.direccionLinea1 }}<br>
+                {{ orden.direccionEnvio.ciudad }}, {{ orden.direccionEnvio.estadoProvincia }}
+              </small>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="orden.notas" class="mt-3">
+          <strong>Notas:</strong> {{ orden.notas }}
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-sm btn-primary" (click)="verDetalle(orden.id!)">
+          Ver Detalles
+        </button>
+        <button 
+          class="btn btn-sm btn-outline-danger ms-2" 
+          *ngIf="!esAdmin && orden.estado === 'PENDIENTE'"
+          (click)="cancelarOrden(orden.id!)">
+          Cancelar Orden
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="ordenes.length === 0" class="text-center py-5">
+    <i class="bi bi-bag-x" style="font-size: 5rem; color: #ccc;"></i>
+    <h3 class="mt-3">{{ esAdmin ? 'No hay órdenes en el sistema' : 'No tienes órdenes aún' }}</h3>
+    <p class="text-muted" *ngIf="!esAdmin">Realiza tu primera compra en nuestra tienda</p>
+    <button *ngIf="!esAdmin" class="btn btn-primary" [routerLink]="['/tienda']">
+      Ir a la Tienda
+    </button>
+  </div>
+</div>

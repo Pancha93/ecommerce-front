@@ -4,7 +4,6 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductoService, Producto } from '../../services/producto.service';
 import { CarritoService } from '../../services/carrito.service';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -16,13 +15,12 @@ import { environment } from '../../../environments/environment';
         <div class="col-md-6">
           <img 
             [src]="getImageUrl()" 
-            (error)="onImageError($event)"
             class="img-fluid rounded" 
             [alt]="producto.nombre">
           <div class="row mt-3">
             <div class="col-3" *ngFor="let imagen of producto.imagenes">
               <img 
-                [src]="imagen.url" 
+                [src]="getSecondaryImageUrl(imagen.url)" 
                 class="img-thumbnail cursor-pointer" 
                 (click)="seleccionarImagen(imagen.url)"
                 [alt]="producto.nombre">
@@ -154,34 +152,14 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   getImageUrl(): string {
-    const imageUrl = this.imagenSeleccionada || this.producto?.imagenPrincipal || '';
-    if (imageUrl) {
-      // Si la URL ya es completa (http/https), usarla directamente
-      if (imageUrl.startsWith('http')) {
-        return imageUrl;
-      }
-      // Si comienza con 'assets/', es una imagen local
-      if (imageUrl.startsWith('assets/')) {
-        return imageUrl;
-      }
-      // Si es una ruta relativa, construir la URL con el backend
-      return `${environment.apiUrl}${imageUrl}`;
-    }
-    // Usar imagen local de assets como respaldo
+    // Usar imágenes locales rotando entre las 4 disponibles
     const imageNumber = this.producto?.id ? ((this.producto.id - 1) % 4) + 1 : 1;
     return `assets/images/products/p${imageNumber}.jpg`;
   }
 
-  onImageError(event: any): void {
-    // Si falla la carga de imagen del backend, intentar con imágenes locales
-    const target = event.target as HTMLImageElement;
-    if (!target.src.includes('assets/images/products/')) {
-      // Si no es una imagen local, usar una imagen local basada en el ID del producto
-      const imageNumber = this.producto?.id ? ((this.producto.id - 1) % 4) + 1 : 1;
-      target.src = `assets/images/products/p${imageNumber}.jpg`;
-    } else {
-      // Si también falló la imagen local, usar placeholder SVG
-      target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="500" height="400" viewBox="0 0 500 400"%3E%3Crect fill="%23ddd" width="500" height="400"/%3E%3Ctext fill="rgba(0,0,0,0.5)" font-family="sans-serif" font-size="24" dy="10" font-weight="bold" x="50%25" y="50%25" text-anchor="middle"%3EImagen no disponible%3C/text%3E%3C/svg%3E';
-    }
+  getSecondaryImageUrl(url: string): string {
+    // Usar imágenes locales para las miniaturas también
+    const imageNumber = this.producto?.id ? ((this.producto.id - 1) % 4) + 1 : 1;
+    return `assets/images/products/p${imageNumber}.jpg`;
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CarritoService, Carrito, CarritoItem } from '../../services/carrito.service';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-carrito',
@@ -21,7 +20,6 @@ import { environment } from '../../../environments/environment';
                   <div class="col-md-2">
                     <img 
                       [src]="getItemImageUrl(item)" 
-                      (error)="onImageError($event, item)"
                       class="img-fluid rounded"
                       [alt]="item.productoNombre">
                   </div>
@@ -165,33 +163,8 @@ export class CarritoComponent implements OnInit {
   }
 
   getItemImageUrl(item: CarritoItem): string {
-    if (item.productoImagen) {
-      // Si la URL ya es completa (http/https), usarla directamente
-      if (item.productoImagen.startsWith('http')) {
-        return item.productoImagen;
-      }
-      // Si comienza con 'assets/', es una imagen local
-      if (item.productoImagen.startsWith('assets/')) {
-        return item.productoImagen;
-      }
-      // Si es una ruta relativa, construir la URL con el backend
-      return `${environment.apiUrl}${item.productoImagen}`;
-    }
-    // Usar imagen local de assets como respaldo
+    // Usar imágenes locales rotando entre las 4 disponibles
     const imageNumber = item.productoId ? ((item.productoId - 1) % 4) + 1 : 1;
     return `assets/images/products/p${imageNumber}.jpg`;
-  }
-
-  onImageError(event: any, item: CarritoItem): void {
-    // Si falla la carga de imagen del backend, intentar con imágenes locales
-    const target = event.target as HTMLImageElement;
-    if (!target.src.includes('assets/images/products/')) {
-      // Si no es una imagen local, usar una imagen local basada en el ID del producto
-      const imageNumber = item.productoId ? ((item.productoId - 1) % 4) + 1 : 1;
-      target.src = `assets/images/products/p${imageNumber}.jpg`;
-    } else {
-      // Si también falló la imagen local, usar placeholder SVG
-      target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext fill="rgba(0,0,0,0.5)" font-family="sans-serif" font-size="12" dy="10" font-weight="bold" x="50%25" y="50%25" text-anchor="middle"%3ESin imagen%3C/text%3E%3C/svg%3E';
-    }
   }
 }

@@ -89,4 +89,10 @@ export class HomeComponent implements OnInit {
       error: (error) => console.error('Error al agregar al carrito', error)
     });
   }
+
+  getProductImageUrl(producto: Producto): string {
+    // Usar imágenes locales rotando entre las 4 disponibles
+    const imageNumber = producto.id ? ((producto.id - 1) % 4) + 1 : 1;
+    return `assets/images/products/p${imageNumber}.jpg`;
+  }
 }
