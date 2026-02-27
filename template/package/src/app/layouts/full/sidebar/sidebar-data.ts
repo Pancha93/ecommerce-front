@@ -2,32 +2,21 @@ import { NavItem } from './nav-item/nav-item';
 
 export const navItems: NavItem[] = [
   {
-    navCap: 'Home',
+    navCap: 'E-commerce',
   },
   {
-    displayName: 'Inicio',
-    iconName: 'home',
-    route: '/inicio',
+    displayName: 'Tienda',
+    iconName: 'store',
+    route: '/tienda',
   },
   {
-    navCap: 'Ordenlaboratorio',
+    displayName: 'Mi Carrito',
+    iconName: 'shopping_cart',
+    route: '/carrito',
   },
   {
-    displayName: 'Ver Orden laboratorio',
-    iconName: 'apps',
-    route: '/ordenlaboratorio'
-  },
-  {
-    displayName: 'Gestionar Ordenlaboratorios',
-    iconName: 'list',
-    route: '/ordenlaboratorio/leer'
-  },
-  {
-    navCap: 'Generador de Reportes',
-  },
-  {
-    displayName: 'Reportes',
-    iconName: 'list',
-    route: '/reportes',
+    displayName: 'Mis Órdenes',
+    iconName: 'receipt',
+    route: '/mis-ordenes',
   },
 ];

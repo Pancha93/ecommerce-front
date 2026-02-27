@@ -64,12 +64,12 @@ export class LoginTradicionalComponent {
 
           Swal.fire({
             title: '¡Inicio de sesión exitoso!',
-            text: 'Redirigiendo al inicio...',
+            text: 'Redirigiendo a la tienda...',
             icon: 'success',
             confirmButtonText: 'OK',
             confirmButtonColor: 'var(--colorBoton)',
           }).then(() => {
-            this.router.navigate(['/inicio']);
+            this.router.navigate(['/tienda']);
           });
         },
         error: (error) => {
