@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-title>Clientes</mat-card-title>
+  <mat-card-content>
+    <div class="clientes-grid">
+      <div class="cliente" *ngFor="let cliente of clientes">
+        <img [src]="cliente.imagen" alt="{{cliente.nombre}}">
+        <p>{{ cliente.nombre }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

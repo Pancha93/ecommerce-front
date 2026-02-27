@@ -1,0 +1,51 @@
+// Agregar estilos para el modo horizontal
+.sidebarNav.horizontal-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100% !important;
+  height: auto !important;
+  z-index: 100;
+
+  .flex-layout {
+    flex-direction: row;
+    align-items: center;
+    padding: 0 16px;
+    height: 64px;
+  }
+
+  .sidebar-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    padding: 0 !important;
+
+    .menu-list-item {
+      display: inline-flex;
+      margin: 0 4px;
+      padding: 8px 16px !important;
+
+      .mdc-list-item__content {
+        flex-direction: row;
+      }
+
+      .mdc-list-item__start {
+        margin-right: 8px !important;
+      }
+    }
+
+    .nav-caption {
+      display: inline-block;
+      padding: 0 16px;
+      margin: 0 !important;
+    }
+  }
+}
+
+// Ajuste del contenido cuando el menú está en modo horizontal
+.content-with-horizontal-nav {
+  margin-left: 0 !important;
+  margin-top: 64px !important;
+}

@@ -1,0 +1,39 @@
+<!-- login.component.html -->
+<div class="blank-layout-container">
+  <div class="login-wrapper">
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center">
+          <a [routerLink]="['/dashboard']">
+            <img [src]="logo" class="align-middle m-2" alt="logo"
+                 style="width: 120px; height: 120px; object-fit: contain;">
+          </a>
+        </div>
+
+        <!-- Botones de inicio de sesión social -->
+        <div class="social-login-container m-t-24">
+          
+          <br>
+          
+          <br>
+          
+        </div>
+
+        <div class="or-border m-t-30">o inicia sesión con</div>
+
+        <!-- Formulario de inicio de sesión tradicional -->
+        <app-login-tradicional></app-login-tradicional>
+
+        <span class="d-block f-w-500 text-center m-t-24">¿Nuevo Usuario?
+            <a [routerLink]="['/authentication/register']" class="text-decoration-none text-primary f-w-500 f-s-14">
+              Crear una cuenta</a>
+          </span>
+        <br>
+        <div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<!-- Footer fuera de la card -->
+<app-footer></app-footer>

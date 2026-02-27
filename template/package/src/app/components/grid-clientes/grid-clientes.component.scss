@@ -1,0 +1,22 @@
+.clientes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+}
+.cliente {
+  text-align: center;
+}
+.cliente img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+mat-card {
+  padding: 16px;
+  border-radius: 0 !important;
+  box-shadow: none;
+}
+mat-card-title {
+  margin-bottom: 12px;
+}

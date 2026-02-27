@@ -1,0 +1,23 @@
+.equipo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+.miembro {
+  text-align: center;
+}
+.miembro img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+mat-card {
+  padding: 16px;
+  border-radius: 0 !important;
+  box-shadow: none;
+}
+mat-card-title {
+  margin-bottom: 12px;
+}

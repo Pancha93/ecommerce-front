@@ -1,0 +1,21 @@
+.estilo2 mat-card {
+  background-color: white;
+  padding: 16px;
+  border-radius: 0 !important;
+  box-shadow: none;
+}
+.form-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.form-field {
+  flex: 1;
+  min-width: 180px;
+}
+.full-width {
+  width: 100%;
+}
+.boton-enviar {
+  margin-top: 12px;
+}

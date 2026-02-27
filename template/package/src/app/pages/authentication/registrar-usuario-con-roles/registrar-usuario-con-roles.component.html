@@ -1,0 +1,83 @@
+
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <form [formGroup]="form" (ngSubmit)="submit()">
+
+            <!-- Nombre -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" placeholder="Ingresa tu nombre" />
+              <mat-error *ngIf="form.get('name')?.hasError('required')">
+                El nombre es obligatorio.
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Nombre de usuario -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Nombre de usuario</mat-label>
+              <input matInput formControlName="username" placeholder="Ingresa tu usuario" />
+              <mat-error *ngIf="form.get('username')?.hasError('required')">
+                El nombre de usuario es obligatorio.
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Correo electrónico -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Correo electrónico</mat-label>
+              <input matInput type="email" formControlName="correo" placeholder="Ingresa tu correo" />
+              <mat-error *ngIf="form.get('correo')?.hasError('required')">
+                El correo es obligatorio.
+              </mat-error>
+              <mat-error *ngIf="form.get('correo')?.hasError('email')">
+                El correo no es válido.
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Contraseña -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Contraseña</mat-label>
+              <input matInput type="password" formControlName="password" placeholder="Ingresa tu contraseña" />
+              <mat-error *ngIf="form.get('password')?.hasError('required')">
+                La contraseña es obligatoria.
+              </mat-error>
+              <mat-error *ngIf="form.get('password')?.hasError('minlength')">
+                La contraseña debe tener al menos 8 caracteres.
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Repetir Contraseña -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Repetir Contraseña</mat-label>
+              <input matInput type="password" formControlName="repeatedPassword" placeholder="Repite tu contraseña" />
+              <mat-error *ngIf="form.get('repeatedPassword')?.hasError('required')">
+                Debes confirmar tu contraseña.
+              </mat-error>
+              <mat-error *ngIf="form.errors?.['passwordsMismatch']">
+                Las contraseñas no coinciden.
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Selección de roles -->
+
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Roles</mat-label>
+              <mat-select formControlName="roles" multiple>
+                <mat-option *ngFor="let role of listaRoles" [value]="role.id">
+                  {{ role.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('roles')?.hasError('required')">
+                Debes seleccionar al menos un rol.
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Botón de registro -->
+            <button mat-flat-button class="boton-crud" type="submit" [disabled]="form.invalid">
+              Registrarse
+            </button>
+
+          </form>
+
+        </mat-card-content>
+      </mat-card>
+

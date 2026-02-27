@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-title>{{ titulo }}</mat-card-title>
+  <mat-card-content>
+    <div class="servicios">
+      <div class="servicio" *ngFor="let s of servicios">
+        <mat-icon>{{ s.icono }}</mat-icon>
+        <h4>{{ s.titulo }}</h4>
+        <p>{{ s.descripcion }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

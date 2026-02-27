@@ -1,0 +1,109 @@
+<!-- Componente de eliminación de ConfiguracionApi -->
+<div class="page-container">
+  <!-- Sección de título -->
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Eliminar ConfiguracionApi</h1>
+      <p class="welcome-subtitle">Interfaz para eliminar registros de ConfiguracionApi</p>
+      <p class="welcome-subtitle">Esta interfaz permite visualizar y eliminar registros existentes. Por favor, tenga en cuenta que esta acción es irreversible.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tabla de registros -->
+  <mat-table [dataSource]="configuracionapis" matSort>
+    <!-- Columna ID -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna campoUsuario -->
+    <ng-container matColumnDef="campoUsuario">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CampoUsuario</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.campoUsuario}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna descripcion -->
+    <ng-container matColumnDef="descripcion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.descripcion}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna entidadAsociada -->
+    <ng-container matColumnDef="entidadAsociada">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>EntidadAsociada</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.entidadAsociada}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna camposInterfaz -->
+    <ng-container matColumnDef="camposInterfaz">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CamposInterfaz</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.camposInterfaz}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna metodosSoportados -->
+    <ng-container matColumnDef="metodosSoportados">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>MetodosSoportados</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.metodosSoportados}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna nombreApi -->
+    <ng-container matColumnDef="nombreApi">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>NombreApi</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.nombreApi}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna urlBase -->
+    <ng-container matColumnDef="urlBase">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>UrlBase</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.urlBase}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna password -->
+    <ng-container matColumnDef="password">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Password</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.password}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna creador -->
+    <ng-container matColumnDef="creador">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Creador</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.creador}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna usuario -->
+    <ng-container matColumnDef="usuario">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.usuario}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna endpointLogin -->
+    <ng-container matColumnDef="endpointLogin">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>EndpointLogin</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.endpointLogin}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna activo -->
+    <ng-container matColumnDef="activo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Activo</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.activo}}</mat-cell>
+    </ng-container>
+
+    <!-- Columna de acciones -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button color="warn" (click)="onDelete(row.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Definición de filas -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <!-- Paginador -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
+</div>

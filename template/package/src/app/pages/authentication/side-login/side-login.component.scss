@@ -1,0 +1,56 @@
+.blank-layout-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  .login-wrapper {
+    width: 100%;
+    max-width: 400px;
+    padding: 16px;
+
+    @media (max-width: 576px) {
+      padding: 24px;
+      max-width: 100%;
+    }
+
+    mat-card {
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+
+      .text-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 120px;
+          height: 120px;
+          object-fit: contain;
+          margin: 16px 0;
+        }
+      }
+    }
+  }
+}
+
+/* Nuevos estilos para los botones de login */
+.social-login-container {
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.social-button {
+  flex: 1;
+}
+
+/* Ajuste necesario para resoluciones de pantalla mas grandes */
+@media (max-width: 480px) {
+  .social-login-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

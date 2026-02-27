@@ -1,0 +1,63 @@
+<mat-toolbar class="navbar-container">
+  <div class="navbar-left">
+    @if(showToggle) {
+      <button mat-icon-button (click)="toggleMobileNav.emit()" class="navbar-toggle-btn">
+        <i-tabler name="menu-2" class="icon-20"></i-tabler>
+      </button>
+    }
+    <a mat-button (click)="navigateToHome()" class="navbar-brand">
+      <img [src]="logo" class="navbar-logo" alt="logo"/>
+    </a>
+  </div>
+
+  <div class="navbar-center">
+    <nav mat-tab-nav-bar>
+      @for(categoria of navbarItems; track categoria.displayName; let i = $index) {
+        @if(categoria.children && categoria.children.length > 0) {
+          <!-- Menú desplegable -->
+          <a mat-tab-link [matMenuTriggerFor]="menuRefs.toArray()[i]">
+            <mat-icon>{{ categoria.iconName || 'folder' }}</mat-icon>
+            {{ categoria.displayName }}
+          </a>
+        } @else {
+          <!-- Item directo -->
+          <a mat-tab-link [routerLink]="categoria.route" routerLinkActive="active">
+            @if(categoria.iconName) {
+              <mat-icon>{{ categoria.iconName }}</mat-icon>
+            }
+            {{ categoria.displayName }}
+          </a>
+        }
+      }
+      
+      <!-- Definir todos los menús después de los botones -->
+      @for(categoria of navbarItems; track categoria.displayName; let i = $index) {
+        @if(categoria.children && categoria.children.length > 0) {
+          <mat-menu #menuRef="matMenu">
+            @for(item of categoria.children; track item.route) {
+              <a mat-menu-item [routerLink]="item.route">
+                @if(item.iconName) {
+                  <i-tabler [name]="item.iconName" class="icon-20"></i-tabler>
+                }
+                <span>{{ item.displayName }}</span>
+              </a>
+            }
+          </mat-menu>
+        }
+      }
+    </nav>
+  </div>
+
+  <div class="navbar-right">
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <i-tabler name="user-circle" class="icon-20"></i-tabler>
+      <span class="ml-2">Mi Cuenta</span>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <i-tabler name="logout" class="icon-20"></i-tabler>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

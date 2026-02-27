@@ -1,0 +1,142 @@
+<div class="page-container">
+  <!-- Welcome Section -->
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Gestión de Usuarios</h1>
+      <p class="welcome-subtitle">Sistema de administración para la creación de usuarios y asignación de roles a usuarios</p>
+      <div class="welcome-details">
+        <p>En este módulo podrá:</p>
+
+        Crear nuevos usuarios en el sistema
+        <br>
+        Asignar roles a usuarios existentes
+        <br>
+        Visualizar los usuarios y sus roles actuales
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Cards for actions -->
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <mat-card class="action-card">
+        <mat-card-content>
+          <h2>Crear Usuario</h2>
+          <p>Registre nuevos usuarios en el sistema especificando sus datos personales y asignando roles iniciales.</p>
+          <button mat-raised-button class="boton-crud" (click)="openCreateUserModal()">
+            <mat-icon>person_add</mat-icon> Crear Usuario
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-6">
+      <mat-card class="action-card">
+        <mat-card-content>
+          <h2>Asignar Roles</h2>
+          <p>Gestione los roles de usuarios existentes para controlar sus permisos y accesos en el sistema.</p>
+          <button mat-raised-button class="boton-crud" (click)="openAssignRolesModal()">
+            <mat-icon>admin_panel_settings</mat-icon> Asignar Roles
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <mat-card class="mt-4">
+    <mat-card-content>
+      <h2>Usuarios</h2>
+      <div class="table-container mat-elevation-z8">
+        <div class="table-header">
+          <mat-form-field appearance="outline">
+            <mat-label>Buscar</mat-label>
+            <input matInput #filterInputUsuarios (keyup.enter)="applyFilterUsuarios(filterInputUsuarios.value)" placeholder="Buscar...">
+          </mat-form-field>
+          <button mat-raised-button class="boton-crud" (click)="applyFilterUsuarios(filterInputUsuarios.value)">
+            <mat-icon>search</mat-icon> <span>Buscar</span>
+          </button>
+          <button mat-raised-button class="boton-crud" (click)="exportUsuariosToExcel()">
+            <mat-icon>file_download</mat-icon> <span>Exportar a Excel</span>
+          </button>
+        </div>
+        <div class="table-scroll">
+          <table mat-table [dataSource]="dataSourceUsuarios" #sortUsuarios="matSort" matSort>
+            <!-- Existing table content -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+              <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ng-container>
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+              <td mat-cell *matCellDef="let element">{{element.username}}</td>
+            </ng-container>
+            <ng-container matColumnDef="correo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+              <td mat-cell *matCellDef="let element">{{element.correo}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="roles">
+              <th mat-header-cell *matHeaderCellDef>Roles</th>
+              <td mat-cell *matCellDef="let element">
+                <ng-container *ngFor="let rol of element.roles; let last = last">
+                  <span style="display: inline-flex; align-items: center; margin-right: 8px;">
+                    {{ rol.nombre }}
+                    <button
+                      mat-icon-button
+                      class="boton-accion-eliminar"
+                      (click)="quitarRol(element.id, rol.id)"
+                      matTooltip="Eliminar este rol"
+                      style="margin-left: 4px; padding: 0;">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </span>
+                  <span *ngIf="!last">, </span>
+                </ng-container>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button class="boton-accion-eliminar" (click)="eliminarUsuario(element.id)" matTooltip="Eliminar usuario">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsUsuarios"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsUsuarios;"></tr>
+          </table>
+        </div>
+        <mat-paginator #paginatorUsuarios [pageSizeOptions]="[5, 10, 20, 40]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Modal para Crear Usuario -->
+<ng-template #createUserModal>
+  <h2 mat-dialog-title>Crear Usuario</h2>
+  <mat-dialog-content>
+    <app-registrar-usuario-con-roles></app-registrar-usuario-con-roles>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="boton-crud-cancel">Cancelar</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!-- Modal para Asignar Roles -->
+<ng-template #assignRolesModal>
+  <h2 mat-dialog-title>Asignar Roles a Usuario</h2>
+  <mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <formly-form [form]="form" [fields]="fieldsForm" [model]="modelo"></formly-form>
+      <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close class="boton-crud-cancel">Cancelar</button>
+        <button mat-raised-button class="boton-crud" type="submit" [disabled]="!form.valid">
+          <mat-icon>save</mat-icon> Guardar
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </mat-dialog-content>
+</ng-template>

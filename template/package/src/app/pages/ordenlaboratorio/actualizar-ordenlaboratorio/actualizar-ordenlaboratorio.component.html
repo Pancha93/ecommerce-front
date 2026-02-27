@@ -1,0 +1,24 @@
+<div class="page-container" style="max-height: calc(100vh - 100px); overflow-y: auto;">
+  <!-- Welcome Section -->
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Actualizar Ordenlaboratorio</h1>
+      <p class="welcome-subtitle">Formulario para modificar registros de Ordenlaboratorio.</p>
+      <p class="welcome-subtitle">Modifique los campos necesarios. Los cambios se guardarán al hacer clic en Actualizar.</p>
+    </mat-card-content>
+  </mat-card>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+        <div class="button-container">
+          <button mat-raised-button class="boton-crud" type="submit" [disabled]="!form.valid">
+            <mat-icon>save</mat-icon> Actualizar
+          </button>
+          <button mat-button class="boton-crud-cancel" type="button" (click)="cancelEdit()" >
+            <mat-icon>cancel</mat-icon> Cancelar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+</div>

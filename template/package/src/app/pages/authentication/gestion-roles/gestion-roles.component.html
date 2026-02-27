@@ -1,0 +1,155 @@
+<div class="page-container">
+  <!-- Welcome Section -->
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Gestión de Roles</h1>
+      <p class="welcome-subtitle">Sistema de administración para la creación de roles y asignación de roles a otros roles</p>
+      <div class="welcome-details">
+        <p>En este módulo podrá:</p>
+
+        Crear nuevos roles en el sistema
+        <br>
+        Asignar roles a otros roles existentes
+        <br>
+        Visualizar los roles padres y sus roles hijos
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Cards for actions -->
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <mat-card class="action-card">
+        <mat-card-content>
+          <h2>Crear Nuevo Rol</h2>
+          <p>Cree nuevos roles en el sistema especificando un nombre único utilizando letras mayúsculas y guiones bajos.</p>
+          <button mat-raised-button class="boton-crud" (click)="openCreateRolModal()">
+            <mat-icon>add</mat-icon> Crear Rol
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-6">
+      <mat-card class="action-card">
+        <mat-card-content>
+          <h2>Asignar Roles Hijos</h2>
+          <p>Establezca jerarquías asignando roles hijos a roles existentes para organizar los permisos del sistema.</p>
+          <button mat-raised-button class="boton-crud" (click)="openAssignRolModal()">
+            <mat-icon>link</mat-icon> Asignar Rol
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Tabla de jerarquía de roles-->
+  <mat-card class="mt-4">
+    <mat-card-content>
+      <h2>Jerarquía de Roles</h2>
+      <div class="table-container mat-elevation-z8">
+        <div class="table-header">
+          <mat-form-field appearance="outline">
+            <mat-label>Buscar</mat-label>
+            <input matInput #filterInputRoles (keyup.enter)="applyFilterRoles(filterInputRoles.value)" placeholder="Buscar...">
+          </mat-form-field>
+          <button mat-raised-button class="boton-crud" (click)="applyFilterRoles(filterInputRoles.value)">
+            <mat-icon>search</mat-icon> <span>Buscar</span>
+          </button>
+          <button mat-raised-button class="boton-crud" (click)="exportRolesToExcel()">
+            <mat-icon>file_download</mat-icon> <span>Exportar a Excel</span>
+          </button>
+        </div>
+        <div class="table-scroll">
+          <table mat-table [dataSource]="dataSourceRoles" #sortRoles="matSort" matSort>
+            <!-- Table content remains the same -->
+            <ng-container matColumnDef="rolPadre">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Rol Padre</th>
+              <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="rolesHijos">
+              <th mat-header-cell *matHeaderCellDef>Roles Hijos</th>
+              <td mat-cell *matCellDef="let element">
+                <ng-container *ngFor="let rolHijo of element.rolesHijos; let last = last">
+                  <span class="rol-hijo">
+                    {{ rolHijo.nombre }}
+                    <button mat-icon-button class="boton-accion-eliminar" (click)="quitarRolHijo(element.id, rolHijo.id, element.nombre, rolHijo.nombre)" matTooltip="Eliminar este rol hijo del rol padre">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </span>
+                  <span *ngIf="!last">, </span>
+                </ng-container>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button class="boton-accion-eliminar" (click)="eliminarRolPadre(element.id)" matTooltip="Eliminar rol padre">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsRoles"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsRoles;"></tr>
+          </table>
+        </div>
+        <mat-paginator #paginatorRoles [pageSizeOptions]="[5, 10, 20, 40]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Modal para Crear Rol -->
+<ng-template #createRolModal>
+  <h2 mat-dialog-title>Crear Nuevo Rol</h2>
+  <mat-dialog-content>
+    <form [formGroup]="formRol" (ngSubmit)="onSubmitRol()">
+      <mat-form-field class="w-100">
+        <mat-label>Nombre del Rol</mat-label>
+        <input matInput formControlName="nombre" placeholder="Ingrese el nombre del rol">
+        <mat-error *ngIf="formRol.get('nombre')?.hasError('required')">
+          El nombre del rol es requerido
+        </mat-error>
+        <mat-error *ngIf="formRol.get('nombre')?.hasError('pattern')">
+          Solo se permiten letras mayúsculas y guiones bajos
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Nuevo campo para esAdministrador -->
+      <mat-form-field class="w-100">
+        <mat-label>¿Es administrador?</mat-label>
+        <mat-select formControlName="esAdministrador">
+          <mat-option [value]="true">Sí</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formRol.get('esAdministrador')?.hasError('required')">
+          Este campo es requerido
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="resetFormRol()" class="boton-crud-cancel">Cancelar</button>
+    <button mat-raised-button class="boton-crud" (click)="onSubmitRol()" [disabled]="!formRol.valid">
+      <mat-icon>add</mat-icon> Crear Rol
+    </button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!-- Modal para Asignar Rol Hijo -->
+<ng-template #assignRolModal>
+  <h2 mat-dialog-title>Asignar Roles Hijos</h2>
+  <mat-dialog-content>
+    <form [formGroup]="formRolHijo" (ngSubmit)="onSubmitRolHijo()">
+      <formly-form [form]="formRolHijo" [fields]="fieldsFormRolHijo" [model]="modeloRolHijo"></formly-form>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="formRolHijo.reset()" class="boton-crud-cancel">Cancelar</button>
+    <button mat-raised-button class="boton-crud" (click)="onSubmitRolHijo()" [disabled]="!formRolHijo.valid">
+      <mat-icon>link</mat-icon> Asignar Rol Hijo
+    </button>
+  </mat-dialog-actions>
+</ng-template>

@@ -1,0 +1,106 @@
+<div class="page-container">
+  <!-- Overlay de carga durante la generación del reporte -->
+  <div class="loading-overlay" *ngIf="isGeneratingReport">
+    <mat-spinner></mat-spinner>
+    <p>Generando reporte, por favor espere...</p>
+  </div>
+
+  <!-- Sección de bienvenida -->
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Generador de Reportes</h1>
+      <p class="welcome-subtitle">Herramienta para crear reportes personalizados</p>
+      <p class="welcome-subtitle">Seleccione una entidad y los atributos que desea incluir en el reporte. Luego, haga clic en 'Generar Reporte'.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Selector de entidad -->
+  <mat-card class="entity-selector-card">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Seleccione una entidad</mat-label>
+        <mat-select [formControl]="entityControl">
+          <mat-option *ngFor="let entity of availableEntities" [value]="entity">
+            {{ entity }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tabla de atributos de la entidad -->
+  <mat-card *ngIf="selectedEntity" class="attributes-card">
+    <mat-card-header>
+      <mat-card-title>Atributos de {{ selectedEntity }}</mat-card-title>
+      <mat-card-subtitle>Seleccione los atributos que desea incluir en el reporte</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="attributesDataSource" matSort>
+          <!-- Columna Nombre de Atributo -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre del Atributo</th>
+            <td mat-cell *matCellDef="let attribute">{{ attribute.name }}</td>
+          </ng-container>
+
+          <!-- Columna Tipo de Dato -->
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de Dato</th>
+            <td mat-cell *matCellDef="let attribute">{{ attribute.type }}</td>
+          </ng-container>
+
+          <!-- Columna Acciones -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let attribute">
+              <button mat-raised-button 
+                      [style.background-color]="attribute.selected ? 'var(--colorError)' : 'var(--colorBoton)'"
+                      [style.color]="'var(--colorTextoBoton)'"
+                      (click)="toggleAttributeSelection(attribute)">
+                <mat-icon>{{ attribute.selected ? 'remove' : 'add' }}</mat-icon>
+                {{ attribute.selected ? 'Quitar del reporte' : 'Agregar al reporte' }}
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Definición de filas -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!-- Paginador -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Resumen de atributos seleccionados -->
+  <mat-card *ngIf="selectedAttributes.length > 0" class="selected-attributes-card">
+    <mat-card-header>
+      <mat-card-title>Atributos Seleccionados para el Reporte</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="selected-attributes-list">
+       <div class="chip-list">
+         <mat-chip-set>
+          <mat-chip *ngFor="let attr of selectedAttributes" [removable]="true" (removed)="toggleAttributeSelection(attr)">
+             {{ attr.entity }}: {{ attr.name }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-set>
+       </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Botón para generar el reporte -->
+  <div class="report-actions" *ngIf="selectedAttributes.length > 0">
+    <button mat-raised-button class="boton-crud" (click)="generateReport()" [disabled]="isGeneratingReport">
+      <mat-icon>description</mat-icon>
+      Generar Reporte PDF
+    </button>
+    <div class="selected-count">
+      Atributos seleccionados: {{ selectedAttributes.length }}
+    </div>
+  </div>
+</div>

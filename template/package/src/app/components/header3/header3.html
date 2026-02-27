@@ -1,0 +1,56 @@
+<div class="header-background">
+  <mat-toolbar class="transparent-toolbar">
+    <div class="header-content">
+      <div class="logo-container">
+        <div class="logo-circle">
+          <span class="logo-text">J</span>
+        </div>
+        <span class="app-name">Coddi</span>
+      </div>
+
+      <div class="desktop-menu">
+        <div class="social-icons">
+          <button mat-icon-button class="social-button">
+            <mat-icon>facebook</mat-icon>
+          </button>
+          <button mat-icon-button class="social-button">
+            <mat-icon>instagram</mat-icon>
+          </button>
+        </div>
+
+        <button mat-button (click)="irALogin()" class="login-button">
+          <mat-icon>login</mat-icon>
+          <span class="button-text">Login</span>
+        </button>
+
+        <button mat-flat-button color="warn" class="contact-button">
+          Contact Us
+        </button>
+      </div>
+
+      <div class="mobile-menu">
+        <button mat-icon-button (click)="toggleMenu()" class="menu-button">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <div class="dropdown-menu" *ngIf="mobileMenuOpen">
+          <div class="social-icons">
+            <button mat-icon-button class="social-button">
+              <mat-icon>facebook</mat-icon>
+            </button>
+            <button mat-icon-button class="social-button">
+              <mat-icon>instagram</mat-icon>
+            </button>
+          </div>
+          <button mat-button (click)="irALogin()" class="login-button">
+            <mat-icon>login</mat-icon>
+            Login
+          </button>
+          <button mat-flat-button color="warn" class="contact-button">
+            Contact Us
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>

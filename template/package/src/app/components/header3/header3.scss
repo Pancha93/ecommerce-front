@@ -1,0 +1,160 @@
+@import "../../../assets/scss/variables";
+
+.header-background {
+  background: $colorEncabezado;
+  padding: 12px 0;
+}
+
+.transparent-toolbar {
+  background: transparent;
+  min-height: 70px;
+  height: auto;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.logo-text {
+  color: $colorTitulo;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.app-name {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.social-button {
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.social-button:hover {
+  opacity: 1;
+}
+
+.login-button {
+  color: $colorTextoBoton !important;
+  background-color: $colorBoton !important;
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 18px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.contact-button {
+  color: $colorTextoBoton !important;
+  background-color: $colorBoton !important;
+  padding: 0 24px;
+  height: 36px;
+  border-radius: 18px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.menu-button {
+  color: white;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 16px;
+  top: 70px;
+  background: $colorEncabezado;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu .social-icons {
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.dropdown-menu .login-button,
+.dropdown-menu .contact-button {
+  width: 100%;
+  justify-content: center;
+  margin: 4px 0;
+}
+
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-name {
+    font-size: 18px;
+  }
+
+  .logo-circle {
+    width: 35px;
+    height: 35px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+}

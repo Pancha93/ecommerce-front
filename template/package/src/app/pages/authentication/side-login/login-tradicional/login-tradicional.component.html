@@ -1,0 +1,32 @@
+<!-- traditional-login.component.html -->
+<form [formGroup]="form" (ngSubmit)="submit()" class="m-t-30">
+  <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nombre de usuario</mat-label>
+  <mat-form-field appearance="outline" class="w-100" color="primary">
+    <input matInput formControlName="uname" placeholder="Ingresa tu nombre de usuario" />
+    <mat-error *ngIf="f['uname'].invalid && f['uname']">
+      El nombre de usuario es requerido y debe tener al menos 4 caracteres.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
+  <mat-form-field appearance="outline" class="w-100" color="primary">
+    <input matInput type="password" formControlName="password" placeholder="Ingresa tu contraseña" />
+    <mat-error *ngIf="f['password'].invalid && f['password']">
+      La contraseña es requerida.
+    </mat-error>
+  </mat-form-field>
+
+  <div class="d-flex align-items-center m-b-12">
+    <mat-checkbox color="primary">Recordar este dispositivo</mat-checkbox>
+    <a [routerLink]="['/forgot-password']" class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14">
+      ¿Olvidaste tu contraseña?
+    </a>
+  </div>
+
+  <div class="submit">
+    <button mat-flat-button class="boton-crud" type="submit" [disabled]="form.invalid">
+      Iniciar sesión
+    </button>
+  </div>
+  <p class="error-message text-center" *ngIf="errorMessage">{{ errorMessage }}</p>
+</form>

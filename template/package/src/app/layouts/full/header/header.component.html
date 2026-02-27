@@ -1,0 +1,55 @@
+<mat-toolbar class="topbar d-flex align-items-center"
+             [ngStyle]="{
+               'flex-direction': alineacion === 'derecha' ? 'row-reverse' : 'row'
+             }">
+
+  <!-- Mobile Menu -->
+  <button mat-icon-button (click)="toggleMobileNav.emit()" class="d-flex d-md-none justify-content-center">
+    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
+  </button>
+
+  <!-- Botón de Tienda -->
+  <button mat-icon-button (click)="irATienda()" matTooltip="Ir a la Tienda">
+    <i-tabler name="shopping-bag" class="icon-20 d-flex"></i-tabler>
+  </button>
+
+  <span class="flex-1-auto"></span>
+  
+  <!-- Botón del Carrito -->
+  <button mat-icon-button (click)="irAlCarrito()" matTooltip="Carrito de Compras">
+    <i-tabler class="d-flex" name="shopping-cart" [matBadge]="cantidadItemsCarrito" 
+              [matBadgeHidden]="cantidadItemsCarrito === 0" matBadgeColor="accent"></i-tabler>
+  </button>
+
+  <!-- Mis Órdenes -->
+  <button mat-icon-button (click)="irAMisOrdenes()" matTooltip="Mis Órdenes">
+    <i-tabler name="clipboard-list" class="icon-20 d-flex"></i-tabler>
+  </button>
+
+  <!-- --------------------------------------------------------------- -->
+  <!-- profile Dropdown -->
+  <!-- --------------------------------------------------------------- -->
+  <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Notifications">
+    <img src="/assets/images/profile/user-1.jpg" class="rounded-circle object-cover" width="35" />
+  </button>
+  <mat-menu #profilemenu="matMenu" class="cardWithShadow">
+    <button mat-menu-item (click)="irAMisOrdenes()">
+      <mat-icon class="d-flex align-items-center"><i-tabler name="clipboard-list" class="icon-18 d-flex"></i-tabler></mat-icon>
+      Mis Órdenes
+    </button>
+    <button mat-menu-item (click)="irAlCarrito()">
+      <mat-icon class="d-flex align-items-center"><i-tabler name="shopping-cart" class="icon-18 d-flex"></i-tabler></mat-icon>
+      Mi Carrito
+    </button>
+
+    <div class="p-x-12 m-t-12">
+      <button mat-raised-button
+              class="boton-crud"
+              (click)="authService.logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+
+  </mat-menu>
+</mat-toolbar>

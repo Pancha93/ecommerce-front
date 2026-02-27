@@ -1,0 +1,10 @@
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Estilos para los botones flotantes pequeños de Material */
+.mat-mdc-mini-fab {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

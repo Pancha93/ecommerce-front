@@ -1,0 +1,129 @@
+<div class="ecommerce-home">
+  <!-- Banner Principal -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Bienvenido a Nuestra Tienda</h1>
+      <p class="hero-subtitle">Encuentra los mejores productos al mejor precio</p>
+      <button mat-raised-button color="primary" class="hero-button" (click)="irATienda()">
+        <mat-icon>shopping_bag</mat-icon>
+        Comprar Ahora
+      </button>
+    </div>
+  </section>
+
+  <!-- Categorías -->
+  <section class="categories-section" *ngIf="categorias.length > 0">
+    <div class="container">
+      <h2 class="section-title">Explora por Categorías</h2>
+      <div class="categories-grid">
+        <mat-card class="category-card" *ngFor="let categoria of categorias" (click)="irACategoria(categoria.id!)">
+          <mat-card-content class="category-content">
+            <mat-icon class="category-icon">category</mat-icon>
+            <h3 class="category-name">{{ categoria.nombre }}</h3>
+            <p class="category-count">{{ categoria.cantidadProductos }} productos</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Productos Destacados -->
+  <section class="products-section" *ngIf="productosDestacados.length > 0">
+    <div class="container">
+      <h2 class="section-title">Productos Destacados</h2>
+      <div class="products-grid">
+        <mat-card class="product-card" *ngFor="let producto of productosDestacados" (click)="verDetalle(producto.id!)">
+          <img mat-card-image [src]="producto.imagenPrincipal || 'https://via.placeholder.com/300'" 
+               [alt]="producto.nombre" class="product-image">
+          <mat-card-content>
+            <h3 class="product-name">{{ producto.nombre }}</h3>
+            <p class="product-description">{{ producto.descripcion?.substring(0, 80) }}...</p>
+            <div class="product-price-section">
+              <span *ngIf="producto.precioOferta" class="product-price-old">${{ producto.precio }}</span>
+              <span class="product-price">${{ producto.precioOferta || producto.precio }}</span>
+            </div>
+            <span class="product-badge" *ngIf="producto.destacado">⭐ Destacado</span>
+          </mat-card-content>
+          <mat-card-actions class="product-actions">
+            <button mat-raised-button color="primary" (click)="agregarAlCarrito(producto, $event)">
+              <mat-icon>add_shopping_cart</mat-icon>
+              Agregar al Carrito
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="text-center mt-4">
+        <button mat-raised-button color="accent" (click)="irATienda()">
+          Ver Todos los Productos
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Productos Nuevos -->
+  <section class="products-section bg-light" *ngIf="productosNuevos.length > 0">
+    <div class="container">
+      <h2 class="section-title">Nuevos Productos</h2>
+      <div class="products-grid">
+        <mat-card class="product-card" *ngFor="let producto of productosNuevos" (click)="verDetalle(producto.id!)">
+          <img mat-card-image [src]="producto.imagenPrincipal || 'https://via.placeholder.com/300'" 
+               [alt]="producto.nombre" class="product-image">
+          <mat-card-content>
+            <h3 class="product-name">{{ producto.nombre }}</h3>
+            <p class="product-description">{{ producto.descripcion?.substring(0, 80) }}...</p>
+            <div class="product-price-section">
+              <span class="product-price">${{ producto.precio }}</span>
+            </div>
+            <span class="product-badge badge-new">✨ Nuevo</span>
+          </mat-card-content>
+          <mat-card-actions class="product-actions">
+            <button mat-raised-button color="primary" (click)="agregarAlCarrito(producto, $event)">
+              <mat-icon>add_shopping_cart</mat-icon>
+              Agregar al Carrito
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Productos en Oferta -->
+  <section class="products-section" *ngIf="productosOfertas.length > 0">
+    <div class="container">
+      <h2 class="section-title">Ofertas Especiales</h2>
+      <div class="products-grid">
+        <mat-card class="product-card" *ngFor="let producto of productosOfertas" (click)="verDetalle(producto.id!)">
+          <img mat-card-image [src]="producto.imagenPrincipal || 'https://via.placeholder.com/300'" 
+               [alt]="producto.nombre" class="product-image">
+          <mat-card-content>
+            <h3 class="product-name">{{ producto.nombre }}</h3>
+            <p class="product-description">{{ producto.descripcion?.substring(0, 80) }}...</p>
+            <div class="product-price-section">
+              <span class="product-price-old">${{ producto.precio }}</span>
+              <span class="product-price product-price-sale">${{ producto.precioOferta }}</span>
+            </div>
+            <span class="product-badge badge-sale">🔥 Oferta</span>
+          </mat-card-content>
+          <mat-card-actions class="product-actions">
+            <button mat-raised-button color="warn" (click)="agregarAlCarrito(producto, $event)">
+              <mat-icon>add_shopping_cart</mat-icon>
+              Agregar al Carrito
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="cta-title">¿Listo para comenzar a comprar?</h2>
+      <p class="cta-subtitle">Explora nuestra colección completa de productos</p>
+      <button mat-raised-button color="primary" class="cta-button" (click)="irATienda()">
+        <mat-icon>shopping_cart</mat-icon>
+        Ir a la Tienda
+      </button>
+    </div>
+  </section>
+</div>

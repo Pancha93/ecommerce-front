@@ -1,0 +1,11 @@
+<!-- slider.component.html -->
+<swiper-container
+  #swiperContainer
+  [attr.effect]="effect"
+  [attr.navigation]="showNavigation"
+  [attr.pagination]="showPagination"
+>
+  <swiper-slide *ngFor="let img of images" lazy="true">
+    <img [src]="img.src" [alt]="img.alt" loading="lazy">
+  </swiper-slide>
+</swiper-container>

@@ -1,0 +1,14 @@
+/* card-imagen.component.scss */
+mat-card {
+  max-width: 100%;
+  margin: auto;
+  padding: 0; /* Elimina el padding interno de mat-card (¡importante!) */
+  overflow: hidden; /* Evita que la imagen se desborde si es muy grande */
+
+  img {
+    width: 100%;
+    height: 100%; /* Ahora la altura también será 100% */
+    object-fit: fill; /* Fuerza el ajuste exacto (distorsiona la imagen) */
+    display: block;
+  }
+}

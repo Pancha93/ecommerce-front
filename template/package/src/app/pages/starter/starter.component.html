@@ -1,0 +1,41 @@
+<!-- Contenedor principal de la página -->
+<div class="page-container">
+  <!-- Sección de bienvenida con información general -->
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Bienvenido al sistema de gestión de órdenes</h1>
+      <p class="welcome-subtitle">{{descripcion}}</p>
+      <p class="welcome-subtitle">Aquí puedes gestionar tus entidades generadas de manera automática</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Sección de listado de entidades disponibles -->
+  <h2 class="section-title">Entidades Disponibles</h2>
+  <mat-card class="entities-card">
+    <mat-card-content>
+      <!-- Tabla de entidades con acciones -->
+      <table class="entities-table">
+        <thead>
+          <tr>
+            <th>Nombre de la Entidad</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Fila para la entidad: Ordenlaboratorio -->
+          <tr>
+            <td>Orden de laboratorio</td>
+            <td class="text-center">
+              <div class="action-button">
+                <!-- Botón de navegación a la vista de gestión de la entidad -->
+                <a routerLink="/ordenlaboratorio/leer" mat-mini-fab color="accent" matTooltip="Gestionar">
+                  <mat-icon>list</mat-icon>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

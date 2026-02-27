@@ -1,0 +1,46 @@
+<div class="header-background">
+  <mat-toolbar class="transparent-toolbar">
+    <div class="header-content">
+      <div class="logo-container">
+        <div class="logo-hexagon">
+          <span class="logo-text">J</span>
+        </div>
+        <span class="app-name">Coddi</span>
+      </div>
+
+      <div class="desktop-menu">
+        <div class="nav-links">
+          <a href="#" class="nav-link">Home</a>
+          <a href="#" class="nav-link">About</a>
+        </div>
+
+        <button mat-button (click)="irALogin()" class="login-button">
+          <mat-icon>login</mat-icon>
+          <span class="button-text">Login</span>
+        </button>
+
+        <button mat-flat-button color="accent" class="action-button">
+          Get Started
+        </button>
+      </div>
+
+      <div class="mobile-menu">
+        <button mat-icon-button (click)="toggleMenu()" class="menu-button">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <div class="dropdown-menu" *ngIf="mobileMenuOpen">
+          <a href="#" class="nav-link">Home</a>
+          <a href="#" class="nav-link">About</a>
+          <button mat-button (click)="irALogin()" class="login-button">
+            <mat-icon>login</mat-icon>
+            Login
+          </button>
+          <button mat-flat-button color="accent" class="action-button">
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>

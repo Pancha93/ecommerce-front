@@ -1,0 +1,131 @@
+<div class="page-container">
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Consultar Orden laboratorio</h1>
+      <p class="welcome-subtitle">Interfaz para gestionar Orden laboratorio</p>
+      <p class="welcome-subtitle">Esta interfaz permite crear, visualizar, actualizar, eliminar, buscar, filtrar y exportar los registros existentes. Utilice las opciones de la tabla y los botones para gestionar la información.</p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card-content>
+    <div class="table-container mat-elevation-z8">
+  <div class="table-header">
+    <mat-form-field appearance="outline" class="campo-busqueda">
+      <mat-label>Buscar</mat-label>
+      <input matInput #filterInput (keyup)="applyFilter(filterInput.value)" placeholder="Buscar...">
+    </mat-form-field>
+    <button mat-raised-button class="boton-crud" (click)="exportToExcel()">
+      <mat-icon>file_download</mat-icon> <span>Exportar a Excel </span>
+    </button>
+    <button mat-raised-button class="boton-crud" (click)="onCreate()">
+      <mat-icon>add</mat-icon> <span>Crear Orden laboratorio
+    </span></button>
+  </div>
+
+  <div class="table-scroll">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.id}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.nombre}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="record">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Record</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.record}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="rx">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rx</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.rx}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="piezas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Piezas</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.piezas}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="shade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Shade</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.shade}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="lab">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Lab</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.lab}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaEnvio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Envio</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.fechaEnvio}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaEntrega">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Entrega</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.fechaEntrega}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="factura">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Factura</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.factura}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="monto">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Monto</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.monto | currency}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="pay">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pay</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.pay}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="cheque">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cheque</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.cheque}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="creador">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Creador</th>
+        <td mat-cell *matCellDef="let element" 
+>          {{element.creador}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button class="boton-accion" (click)="onEdit(element)" matTooltip="Modificar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button class="boton-accion-eliminar" (click)="onDelete(element.id)" matTooltip="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div class="table-footer">
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 40]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+  </mat-card-content>
+</div>

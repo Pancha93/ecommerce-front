@@ -1,0 +1,123 @@
+<!-- Contenedor principal con layout responsive -->
+<div class="page-container">
+  <!-- Sección de bienvenida con información general de la entidad -->
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Gestión de Orden laboratorio</h1>
+      <p class="welcome-subtitle">Panel de Control para la Entidad Orden laboratorio</p>
+      <p class="welcome-subtitle">Esta interfaz proporciona una vista detallada de la entidad Orden laboratorio, mostrando sus atributos y relaciones. Utilice los botones de acción para realizar operaciones de gestión sobre los registros.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tarjeta que muestra los atributos de la entidad en formato tabla -->
+  <mat-card class="entities-card">
+    <h2 class="section-title">Atributos de la Entidad</h2>
+    <mat-card-content>
+      <!-- Tabla responsiva con los atributos de la entidad -->
+      <table class="entities-table">
+        <thead>
+          <tr>
+            <th>Nombre del Atributo</th>
+            <th>Tipo de Dato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Fila de atributo: id -->
+          <tr>
+            <td>id</td>
+            <td>long</td>
+          </tr>
+          <!-- Fila de atributo: nombre -->
+          <tr>
+            <td>nombre</td>
+            <td>String</td>
+          </tr>
+          <!-- Fila de atributo: record -->
+          <tr>
+            <td>record</td>
+            <td>String</td>
+          </tr>
+          <!-- Fila de atributo: rx -->
+          <tr>
+            <td>rx</td>
+            <td>String</td>
+          </tr>
+          <!-- Fila de atributo: piezas -->
+          <tr>
+            <td>piezas</td>
+            <td>Integer</td>
+          </tr>
+          <!-- Fila de atributo: shade -->
+          <tr>
+            <td>shade</td>
+            <td>String</td>
+          </tr>
+          <!-- Fila de atributo: lab -->
+          <tr>
+            <td>lab</td>
+            <td>String</td>
+          </tr>
+          <!-- Fila de atributo: fechaEnvio -->
+          <tr>
+            <td>fechaEnvio</td>
+            <td>LocalDate</td>
+          </tr>
+          <!-- Fila de atributo: fechaEntrega -->
+          <tr>
+            <td>fechaEntrega</td>
+            <td>LocalDate</td>
+          </tr>
+          <!-- Fila de atributo: factura -->
+          <tr>
+            <td>factura</td>
+            <td>String</td>
+          </tr>
+          <!-- Fila de atributo: monto -->
+          <tr>
+            <td>monto</td>
+            <td>Double</td>
+          </tr>
+          <!-- Fila de atributo: pay -->
+          <tr>
+            <td>pay</td>
+            <td>String</td>
+          </tr>
+          <!-- Fila de atributo: cheque -->
+          <tr>
+            <td>cheque</td>
+            <td>String</td>
+          </tr>
+          <!-- Fila de atributo: creador -->
+          <tr>
+            <td>creador</td>
+            <td>String</td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tarjeta que muestra las relaciones de la entidad -->
+  <mat-card class="entities-card">
+    <h2 class="section-title">Relaciones de la Entidad</h2>
+    <mat-card-content>
+      <!-- Tabla responsiva con las relaciones entre entidades -->
+      <table class="entities-table">
+        <thead>
+          <tr>
+            <th>Entidad Relacionada</th>
+            <th>Tipo de Relación</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <!-- Sección de acciones CRUD -->
+  <mat-card-actions class="crud-actions">
+    <button mat-raised-button class="boton-crud" routerLink="./leer">
+      <mat-icon>list</mat-icon> Gestionar Orden laboratorios
+    </button>
+  </mat-card-actions>
+</div>

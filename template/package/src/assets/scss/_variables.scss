@@ -1,0 +1,65 @@
+// Importación de tipografía específica
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+// Importación de tipografía para títulos
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+// Archivo de variables SCSS generado automáticamente
+
+// Colores
+$colorBoton: #AA1F1B;
+$colorError: #FF0C00;
+$colorTexto: #003359;
+$colorTitulo: #AA1F1B;
+$colorFondoMenu: #092156;
+$colorTextoMenu: #F2F2F2;
+$colorEncabezado: #F2F2F2;
+$colorFocusInput: #AFAFAF;
+$colorTextoBoton: #F2F2F2;
+$colorFondoMenuActivo: #AA1F1B;
+$colorTextoMenuActivo: #F2F2F2;
+// colores de feedback
+$color-exito: #28a745; // verde para success
+$color-advertencia: #ffc107; // amarillo para warning
+$color-info: #007bff; // azul para info
+
+// Fuente
+$font-family: Roboto;
+$font-family-secondary: Roboto;
+$font-weight: 300;
+
+// light color variable
+$sidebarbg: white;
+$background: #fafafa;
+$cardbg: white;
+$toolbar: white;
+$cardshadow: 1px 0 20px #00000014;
+$hoverBgColor: #f6f9fc;
+
+// Sidenav
+$sidenav-desktop: 270px !default;
+$sidenav-mini: 80px !default;
+$header-height: 70px !default;
+
+// BorderColor
+$borderColor: #e5eaef;
+$borderformColor: #dfe5ef;
+
+// custom
+$primary: #fb9778;
+$accent: #03c9d7;
+$warning: $color-advertencia;
+$error: $colorError;
+$success: $color-exito;
+$white: #ffffff;
+
+$light: #f2f6fa;
+
+$gray-100:  #7c8fac;
+
+// layout
+$boxedWidth: 1200px; // ancho de layout donde va el component
+
+$border-radius: 7px;
+$radio-borde-botones: 50px;
+
+// text color
+$textPrimary: $colorTexto; // textos por ejemplo en el sidebar

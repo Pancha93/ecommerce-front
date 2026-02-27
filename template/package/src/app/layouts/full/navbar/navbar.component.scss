@@ -1,0 +1,122 @@
+@import "../../../../assets/scss/variables";
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  padding: 0 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $colorFondoMenu;
+
+  &, & * {
+    color: $colorTextoMenu;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .navbar-toggle-btn {
+      display: none;
+      color: $colorTextoMenu;
+      @media (max-width: 768px) {
+        display: block;
+      }
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $colorTextoMenu;
+
+      .navbar-logo {
+        height: 32px;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .navbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    nav {
+      .mat-tab-link {
+        background-color: $colorFondoMenu;
+        color: $colorTextoMenu;
+        min-width: 100px;
+        padding: 0 24px;
+        opacity: 0.7;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+      .mat-icon {
+        color: $colorTextoMenu;
+      }
+    }
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    button {
+      color: $colorTextoMenu;
+    }
+
+    .icon-20 {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+      color: $colorTextoMenu;
+    }
+
+    .ml-2 {
+      margin-left: 8px;
+    }
+  }
+}
+
+.mat-menu-panel {
+  background-color: $colorFondoMenu !important;
+
+  .mat-menu-item {
+    color: $colorTextoMenu !important;
+
+    &:hover {
+      background-color: darken($colorFondoMenu, 5%) !important;
+    }
+
+    .icon-20 {
+      color: $colorTextoMenu !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-center {
+    display: none;
+  }
+}
+/* Importación de la tipografia desde variables.scss */
+@import '../../../../assets/scss/variables';
+
+/* Aplicación de tipografía consistente */
+.mat-toolbar,
+.mat-toolbar-row,
+.navbar-brand,
+.navbar-nav,
+.nav-link,
+button,
+a,
+span,
+div {
+  font-family: $font-family-secondary !important;
+}

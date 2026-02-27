@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-title>{{ titulo }}</mat-card-title>
+  <mat-card-content>
+    <div class="equipo">
+      <div class="miembro" *ngFor="let m of equipo">
+        <img [src]="m.foto" alt="{{ m.nombre }}">
+        <h4>{{ m.nombre }}</h4>
+        <p>{{ m.rol }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

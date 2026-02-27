@@ -1,0 +1,91 @@
+<div class="page-container">
+  <!-- Overlay de carga -->
+  <div class="loading-overlay" *ngIf="cargando">
+    <mat-spinner></mat-spinner>
+    <p>Procesando, por favor espere...</p>
+  </div>
+
+  <!-- Tarjeta de bienvenida -->
+  <mat-card class="welcome-section">
+    <mat-card-content>
+      <h1 class="welcome-title">Configuración de Correo SMTP</h1>
+      <p class="welcome-subtitle">Actualiza los detalles de tu servidor SMTP</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tarjeta principal de configuración -->
+  <mat-card class="email-config-card">
+
+    <mat-card-content>
+      <form [formGroup]="emailConfigForm" class="email-form">
+
+        <!-- Fila 1: Host y Puerto -->
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Host SMTP</mat-label>
+            <input matInput formControlName="host" placeholder="smtp.dominio.com">
+            <mat-error *ngIf="emailConfigForm.get('host')?.hasError('required')">
+              El host es obligatorio
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Puerto</mat-label>
+            <input matInput type="number" formControlName="port" placeholder="***">
+            <mat-error *ngIf="emailConfigForm.get('port')?.hasError('required')">
+              El puerto es obligatorio
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Fila 2: Usuario y Contraseña -->
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Usuario (correo)</mat-label>
+            <input matInput type="email" formControlName="username" placeholder="correo@dominio.com">
+            <mat-error *ngIf="emailConfigForm.get('username')?.hasError('required')">
+              El usuario es obligatorio
+            </mat-error>
+            <mat-error *ngIf="emailConfigForm.get('username')?.hasError('email')">
+              Ingrese un correo válido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="********">
+            <button mat-icon-button matSuffix type="button" (click)="toggleHide()">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="emailConfigForm.get('password')?.hasError('required')">
+              La contraseña es obligatoria
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Fila 3: Checkboxes -->
+        <div class="form-row checkbox-row">
+          <mat-checkbox formControlName="auth">Requiere Autenticación</mat-checkbox>
+          <mat-checkbox formControlName="starttlsEnable">Habilitar STARTTLS</mat-checkbox>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button class="mat-mdc-button" color="primary"
+              (click)="guardarConfiguracion()"
+              [disabled]="emailConfigForm.invalid || cargando">
+        Guardar Configuración
+      </button>
+      <button mat-raised-button class="mat-mdc-button" color="accent"
+              (click)="testConfiguracion()"
+              [disabled]="emailConfigForm.invalid || cargando">
+        Test Configuración
+      </button>
+      <button mat-mini-fab color="primary" class="refresh-button" (click)="cargarConfiguracion()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+</div>

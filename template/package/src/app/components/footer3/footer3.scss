@@ -1,0 +1,129 @@
+@import "../../../assets/scss/variables";
+
+.footer-background {
+  background: $colorEncabezado;
+  padding: 40px 0 20px;
+  margin-top: auto;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.footer-section {
+  text-align: center;
+}
+
+.section-title {
+  color: $colorTitulo;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    width: 40px;
+    height: 2px;
+    background-color: $colorTextoBoton;
+    transform: translateX(-50%);
+  }
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $colorTextoBoton;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.social-link:hover {
+  opacity: 1;
+}
+
+.contact-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: $colorBoton;
+  color: $colorTextoBoton;
+  text-decoration: none;
+  border-radius: 18px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.contact-link:hover {
+  transform: translateY(-2px);
+}
+
+.social-link mat-icon {
+  color: $colorTextoBoton;
+}
+
+mat-icon {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 40px;
+  }
+
+  .social-text {
+    display: none;
+  }
+
+  .social-link {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .contact-link {
+    width: 36px;
+    height: 36px;
+  }
+}
